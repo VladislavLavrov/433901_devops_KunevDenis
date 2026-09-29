@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Simple Calculator";
+    ViewData["Title"] = "Калькулятор";
 }
 <h2>@ViewData["Title"]</h2>
 <form method="post" asp-controller="Calculator" asp-action="Calculate">
@@ -12,9 +12,9 @@
         <option value="Divide">/</option>
     </select>
     <input type="text" name="num2" required />
-    <input type="submit" value="Calculate" />
+    <input type="submit" value="Вычислить" />
 </form>
 @if (ViewBag.Result != null)
 {
-    <h3>Result: @ViewBag.Result</h3>
+    <h3>Результат: @ViewBag.Result</h3>
 }
