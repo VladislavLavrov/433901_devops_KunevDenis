@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: password
-      MARIADB_DATABASE: webdb
+      MARIADB_DATABASE: 5-WebCalculatorDb
       MARIADB_USER: webdb
       MARIADB_PASSWORD: password
     ports:
