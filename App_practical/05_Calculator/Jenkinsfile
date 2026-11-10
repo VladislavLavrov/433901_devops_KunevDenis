@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    options {
+        disableConcurrentBuilds()
+    }
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                dir('App_practical/05_Calculator') {
+                    sh 'docker compose build web'
+                }
+            }
+        }
+
+        stage('Start Docker Container') {
+            steps {
+                dir('App_practical/05_Calculator') {
+                    sh 'docker compose up -d --no-build web'
+                }
+            }
+        }
+    }
+}
