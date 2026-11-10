@@ -7,4 +7,9 @@
     <RootNamespace>Калькулятор</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.20.1-beta.1" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.20.1" />
+  </ItemGroup>
+
 </Project>

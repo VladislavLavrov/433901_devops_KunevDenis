@@ -1,7 +1,13 @@
+using OpenTelemetry.Metrics;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddOpenTelemetry()
+    .WithMetrics(metrics => metrics
+        .AddMeter("Microsoft.AspNetCore.Hosting")
+        .AddPrometheusExporter());
 
 var app = builder.Build();
 
@@ -19,6 +25,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapPrometheusScrapingEndpoint();
 
 app.MapControllerRoute(
     name: "default",

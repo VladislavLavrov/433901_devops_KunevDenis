@@ -1,7 +1,7 @@
-name: kunev-lab4
+name: kunev-lab5
 
 services:
   web:
     build: ./05_Calculator
     ports:
-      - "5205:5005"
+      - "5305:5005"
