@@ -1,0 +1,10 @@
+@model IReadOnlyList<Calculator.Data.DataInputVariant>
+<table class="table table-striped">
+    <thead><tr><th>ID</th><th>Первое число</th><th>Операция</th><th>Второе число</th><th>Результат</th></tr></thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.ID_DataInputVariant</td><td>@item.Operand_1</td><td>@item.Type_operation</td><td>@item.Operand_2</td><td>@item.Result</td></tr>
+    }
+    </tbody>
+</table>

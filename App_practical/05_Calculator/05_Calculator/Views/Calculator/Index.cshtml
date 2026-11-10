@@ -1,20 +1,30 @@
-﻿@{
-    ViewData["Title"] = "Калькулятор";
+@model IReadOnlyList<Calculator.Data.DataInputVariant>
+@{
+    ViewData["Title"] = "Калькулятор Kafka";
 }
 <h2>@ViewData["Title"]</h2>
-<form method="post" asp-controller="Calculator" asp-action="Calculate">
-    @Html.AntiForgeryToken()
-    <input type="text" name="num1" required />
-    <select name="operation" required>
-        <option value="Add">+</option>
-        <option value="Subtract">-</option>
-        <option value="Multiply">*</option>
-        <option value="Divide">/</option>
-    </select>
-    <input type="text" name="num2" required />
-    <input type="submit" value="Вычислить" />
-</form>
-@if (ViewBag.Result != null)
+@if (TempData["Message"] is string message)
 {
-    <h3>Результат: @ViewBag.Result</h3>
+    <div class="alert alert-info" role="status">@message</div>
+}
+<form method="post" asp-controller="Calculator" asp-action="Calculate" class="d-flex gap-2 mb-4">
+    <label>Первое число <input class="form-control" type="number" step="any" name="num1" required /></label>
+    <label>Операция
+        <select class="form-select" name="operation" asp-items="Html.GetEnumSelectList<Calculator.Models.Operation>()"></select>
+    </label>
+    <label>Второе число <input class="form-control" type="number" step="any" name="num2" required /></label>
+    <button class="btn btn-primary align-self-end" type="submit">Вычислить</button>
+</form>
+<h3>Последние результаты</h3>
+<p>Таблица обновляется автоматически после обработки сообщения Kafka.</p>
+<div id="results"><partial name="_Results" model="Model" /></div>
+@section Scripts {
+<script>
+    setInterval(async () => {
+        try {
+            const response = await fetch('@Url.Action("Results", "Calculator")');
+            if (response.ok) document.getElementById('results').innerHTML = await response.text();
+        } catch { /* Keep displayed results if the connection is temporarily lost. */ }
+    }, 2000);
+</script>
 }
